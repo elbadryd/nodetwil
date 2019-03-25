@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios'
+import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from 'constants';
 
 class App extends React.Component {
   constructor(props){
@@ -49,8 +50,8 @@ handleSendSms(){
     number,
     smsContent,
   })
-  .then(response=>{
-    console.log(response)
+  .then(res=>{
+    return res.status === 200 ? alert('sms sent successfully') : alert('something went wrong')
   })
 }
 

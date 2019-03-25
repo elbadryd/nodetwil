@@ -31,6 +31,16 @@ app.post('/text', function (req, res) {
     res.send(err)
   })
 })
+app.post('/receive', (req, res) => {
+  if (req.body.Body === '1') {
+  client.messages
+  .create({
+     body: 'your message was received',
+     from: '+15046084567',
+     to: req.body.From,
+   })
+  }
+})
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
