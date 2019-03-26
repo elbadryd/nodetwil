@@ -7,7 +7,23 @@ const nodemailer = require('nodemailer');
 dotenv.config()
 const accountSid = process.env.ACCOUNT_SID;
 const authToken = process.env.AUTH_TOKEN;
-const client = require('twilio')(accountSid, authToken);
+const twilclient = require('twilio')(accountSid, authToken);
+
+const MongoClient = require('mongodb').MongoClient;
+const uri = `mongodb+srv://elbadryd:${process.env.MONGO_PW}@cluster0-mclid.mongodb.net/test?retryWrites=true`;
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  console.log(collection)
+  if (err) {
+    console.log(err)
+  } else {
+    console.log('mongo connected')
+  }
+  client.close();
+});
+
+
 
 app.use(express.static(path.join(__dirname, '../build')));
 app.use(bodyParser.json());
@@ -20,7 +36,7 @@ app.use(function (req, res, next) {
   });
 
 app.post('/text', function (req, res) {
-  client.messages
+  twil.messages
   .create({
      body: req.body.smsContent,
      from: '+15046084567',
@@ -33,7 +49,7 @@ app.post('/text', function (req, res) {
 })
 app.post('/receive', (req, res) => {
   if (req.body.Body === '1') {
-  client.messages
+  twilclient.messages
   .create({
      body: 'your message was received',
      from: '+15046084567',

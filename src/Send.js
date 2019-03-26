@@ -1,9 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Form from './Form';
 import axios from 'axios'
-import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from 'constants';
 
 class Send extends React.Component {
   constructor(props){
@@ -74,7 +71,7 @@ handleSendSms(){
               onChange={this.handleChange} />
     <button type="button" onClick={this.handleSubmit}>Submit</button>
     </div>
-    Send a text
+    Send a text msg
     <div classname="text-form">
       number: <input 
               name="number" 

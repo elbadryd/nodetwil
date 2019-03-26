@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import Send from './Send';
 import Form from './Form';
 
