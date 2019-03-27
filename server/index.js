@@ -11,21 +11,7 @@ const twilclient = require('twilio')(accountSid, authToken);
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = `mongodb+srv://elbadryd:${process.env.MONGO_PW}@cluster0-mclid.mongodb.net/test?retryWrites=true`;
-const DATABASE_NAME = "my_cluster";
-
-// const client = new MongoClient(uri, { useNewUrlParser: true });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   console.log(collection)
-//   if (err) {
-//     console.log(err)
-//   } else {
-//     console.log('mongo connected')
-//   }
-//   client.close();
-// });
-
-
+const DATABASE_NAME = "employees";
 
 app.use(express.static(path.join(__dirname, '../build')));
 app.use(bodyParser.json());
@@ -38,7 +24,7 @@ app.use(function (req, res, next) {
   });
 
 app.post('/text', function (req, res) {
-  twil.messages
+  twilclient.messages
   .create({
      body: req.body.smsContent,
      from: '+15046084567',
@@ -58,6 +44,13 @@ app.post('/receive', (req, res) => {
      to: req.body.From,
    })
   }
+ database.collection("people").insertOne({
+    name: 'mobile user',
+    number: req.body.From,
+    status: "Safe"
+ }, (err, result) => {
+   return err ? console.log(err) : console.log(result);
+ })
 })
 
 app.get('/*', function (req, res) {
@@ -116,6 +109,7 @@ app.listen(8080, () => {
     database = client.db(DATABASE_NAME);
     collection = database.collection("people");
     console.log("Connected to `" + DATABASE_NAME + "`!");
+
     })
   }
 );
