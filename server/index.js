@@ -11,17 +11,19 @@ const twilclient = require('twilio')(accountSid, authToken);
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = `mongodb+srv://elbadryd:${process.env.MONGO_PW}@cluster0-mclid.mongodb.net/test?retryWrites=true`;
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  console.log(collection)
-  if (err) {
-    console.log(err)
-  } else {
-    console.log('mongo connected')
-  }
-  client.close();
-});
+const DATABASE_NAME = "my_cluster";
+
+// const client = new MongoClient(uri, { useNewUrlParser: true });
+// client.connect(err => {
+//   const collection = client.db("test").collection("devices");
+//   console.log(collection)
+//   if (err) {
+//     console.log(err)
+//   } else {
+//     console.log('mongo connected')
+//   }
+//   client.close();
+// });
 
 
 
@@ -106,4 +108,14 @@ var transport = {
       }
     })
   })
-app.listen(process.env.PORT || 8080);
+app.listen(8080, () => {
+  MongoClient.connect(uri, { useNewUrlParser: true }, (error, client) => {
+    if(error) {
+        console.log(error)
+    }
+    database = client.db(DATABASE_NAME);
+    collection = database.collection("people");
+    console.log("Connected to `" + DATABASE_NAME + "`!");
+    })
+  }
+);
