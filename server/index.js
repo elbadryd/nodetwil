@@ -22,7 +22,12 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
+  
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
 
+//sends message from form
 app.post('/text', function (req, res) {
   twilclient.messages
   .create({
@@ -35,6 +40,12 @@ app.post('/text', function (req, res) {
     res.send(err)
   })
 })
+
+app.get('/empData', function (req, res) {
+  const allData = database.collection('people').find({})
+  res.send(allData)
+})
+//recieves message from employee's mobile device, responds and inserts status to db
 app.post('/receive', (req, res) => {
   if (req.body.Body === '1') {
   twilclient.messages
@@ -53,9 +64,6 @@ app.post('/receive', (req, res) => {
  })
 })
 
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, '../build', 'index.html'));
-});
 
 var transport = {
     host: 'smtp.gmail.com',
@@ -75,6 +83,7 @@ var transport = {
     }
   });
 
+  //sends email from form
   app.post('/send', (req, res, next) => {
     console.log(req.body)
     var name = req.body.name;
@@ -84,7 +93,7 @@ var transport = {
   
     var mail = {
       from: name,
-      to: email,  //Change to email address that you want to receive messages on
+      to: email, 
       subject: 'New Message from Contact Form',
       text: content
     }
@@ -102,6 +111,7 @@ var transport = {
     })
   })
 app.listen(8080, () => {
+  console.log('app listening on port 8080')
   MongoClient.connect(uri, { useNewUrlParser: true }, (error, client) => {
     if(error) {
         console.log(error)
@@ -109,7 +119,6 @@ app.listen(8080, () => {
     database = client.db(DATABASE_NAME);
     collection = database.collection("people");
     console.log("Connected to `" + DATABASE_NAME + "`!");
-
     })
   }
 );
