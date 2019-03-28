@@ -22,10 +22,6 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
-  
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, '../build', 'index.html'));
-});
 
 //sends message from form
 app.post('/text', function (req, res) {
@@ -42,8 +38,9 @@ app.post('/text', function (req, res) {
 })
 
 app.get('/empData', function (req, res) {
-  const allData = database.collection('people').find({})
-  res.send(allData)
+  database.collection('people').find({}).toArray((err, result) =>{
+  return err ? res.send(err) : res.send(result);
+  })
 })
 //recieves message from employee's mobile device, responds and inserts status to db
 app.post('/receive', (req, res) => {
@@ -110,15 +107,20 @@ var transport = {
       }
     })
   })
+
+app.get('/*', (req,res) =>{
+    res.sendFile(path.join(__dirname, '../build/index.html'));
+});
+
 app.listen(8080, () => {
   console.log('app listening on port 8080')
   MongoClient.connect(uri, { useNewUrlParser: true }, (error, client) => {
     if(error) {
         console.log(error)
+    } else {
+      database = client.db(DATABASE_NAME);
+      console.log("Connected to `" + DATABASE_NAME + "`!");
     }
-    database = client.db(DATABASE_NAME);
-    collection = database.collection("people");
-    console.log("Connected to `" + DATABASE_NAME + "`!");
     })
   }
 );

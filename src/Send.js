@@ -58,7 +58,7 @@ handleSendSms(){
   render() {
     return (
       <div className="App">
-      Send an email
+      Send email
       <div classname="email-form">
       name: <input 
               name="clientName" 

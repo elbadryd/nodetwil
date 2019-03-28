@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import EnhancedTable from './components/table'
 
 class MgrPortal extends React.Component {
     constructor(props){
@@ -20,6 +21,7 @@ class MgrPortal extends React.Component {
         return (
             <div>
                 <h2>this is the manager portal</h2>
+                <EnhancedTable />
             </div>
         )
     }
