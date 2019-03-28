@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import axios from 'axios'
+import axios from 'axios';
+import Inputs from './components/smsinput';
 
 class Send extends React.Component {
   constructor(props){
@@ -72,7 +73,7 @@ handleSendSms(){
     <button type="button" onClick={this.handleSubmit}>Submit</button>
     </div>
     Send a text msg
-    <div classname="text-form">
+    {/* <div classname="text-form">
       number: <input 
               name="number" 
               onChange={this.handleChange} />
@@ -80,7 +81,8 @@ handleSendSms(){
               name="smsContent" 
               onChange={this.handleChange} />
     <button type="button" onClick={this.handleSendSms.bind(this)}>Submit</button>
-    </div>
+    </div> */}
+    <Inputs/>
       </div>
     );
   }
