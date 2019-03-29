@@ -59,21 +59,17 @@ handleSendSms(){
   render() {
     return (
       <div className="App">
-      Send email
-      <div classname="email-form">
-      name: <input 
-              name="clientName" 
-              onChange={this.handleChange} />
-      email: <input 
-              name="email" 
-              onChange={this.handleChange} />
-      message: <textarea 
-              name="message" 
-              onChange={this.handleChange} />
-    <button type="button" onClick={this.handleSubmit}>Submit</button>
-    </div>
-    Send a text msg
-    {/* <div classname="text-form">
+        Send email
+        <div classname="email-form">
+          name: <input name="clientName" onChange={this.handleChange} />
+          email: <input name="email" onChange={this.handleChange} />
+          message: <textarea name="message" onChange={this.handleChange} />
+          <button type="button" onClick={this.handleSubmit}>
+            Submit
+          </button>
+        </div>
+        Send a text msg
+        {/* <div classname="text-form">
       number: <input 
               name="number" 
               onChange={this.handleChange} />
@@ -82,7 +78,10 @@ handleSendSms(){
               onChange={this.handleChange} />
     <button type="button" onClick={this.handleSendSms.bind(this)}>Submit</button>
     </div> */}
-    <Inputs/>
+        <Inputs handleChange={this.handleChange} />
+        <button type="button" onClick={this.handleSendSms.bind(this)}>
+          Submit
+        </button>
       </div>
     );
   }

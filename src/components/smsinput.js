@@ -21,33 +21,37 @@ const styles = theme => ({
 });
 
 function Inputs(props) {
-  const { classes } = props;
+  const { classes, handleChange } = props;
   return (
     <div className={classes.container}>
 
-      <Input
+      {/* <Input
         placeholder="Name"
         className={classes.input}
         inputProps={{
           'aria-label': 'Description',
         }}
-      />
+      /> */}
 
       <Input
+        name="number"
         placeholder="Phone Number"
         className={classes.input}
         inputProps={{
           'aria-label': 'Description',
         }}
+        onChange={handleChange}
       />
 
     <TextField
+          name="smsContent"
           id="standard-textarea"
           label="your message"
           placeholder="message"
           multiline
           className={classes.textField}
           margin="normal"
+          onChange={handleChange}
         />
 
     </div>
