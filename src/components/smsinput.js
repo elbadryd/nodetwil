@@ -33,7 +33,7 @@ function Inputs(props) {
         }}
       /> */}
 
-      <Input
+      {/* <Input
         name="number"
         placeholder="Phone Number"
         className={classes.input}
@@ -41,7 +41,7 @@ function Inputs(props) {
           'aria-label': 'Description',
         }}
         onChange={handleChange}
-      />
+      /> */}
 
     <TextField
           name="smsContent"
