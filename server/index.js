@@ -44,21 +44,30 @@ app.get('/empData', function (req, res) {
 })
 //recieves message from employee's mobile device, responds and inserts status to db
 app.post('/receive', (req, res) => {
-  if (req.body.Body === '1') {
   twilclient.messages
   .create({
      body: 'your message was received',
      from: '+15046084567',
      to: req.body.From,
    })
+  if (req.body.Body === '1') {
+   database.collection("people").insertOne({
+      name: 'mobile user',
+      number: req.body.From,
+      status: "Safe"
+   }, (err, result) => {
+     return err ? console.log(err) : console.log(result);
+   })
+  } else {
+    console.log(req);
+    database.collection("people").insertOne({
+      name: 'mobile user',
+      number: req.body.From,
+      status: req.body.Body,
+    }, (err, result) => {
+      return err ? console.log(err) : console.log(result);
+    })
   }
- database.collection("people").insertOne({
-    name: 'mobile user',
-    number: req.body.From,
-    status: "Safe"
- }, (err, result) => {
-   return err ? console.log(err) : console.log(result);
- })
 })
 
 

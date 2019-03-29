@@ -233,19 +233,19 @@ class EnhancedTable extends React.Component {
 
   handleSelectAllClick = event => {
     if (event.target.checked) {
-      this.setState(state => ({ selected: state.data.map(n => n.id) }));
+      this.setState(state => ({ selected: state.data.map(n => n.number) }));
       return;
     }
     this.setState({ selected: [] });
   };
 
-  handleClick = (event, id) => {
+  handleClick = (event, number) => {
     const { selected } = this.state;
-    const selectedIndex = selected.indexOf(id);
+    const selectedIndex = selected.indexOf(number);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = newSelected.concat(selected, number);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -292,11 +292,11 @@ class EnhancedTable extends React.Component {
               {stableSort(data, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
-                  const isSelected = this.isSelected(n.id);
+                  const isSelected = this.isSelected(n.number);
                   return (
                     <TableRow
                       hover
-                      onClick={event => this.handleClick(event, n.id)}
+                      onClick={event => this.handleClick(event, n.number)}
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}

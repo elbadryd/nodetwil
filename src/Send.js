@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import axios from 'axios';
 import Inputs from './components/smsinput';
+import FloatingActionButton from './components/submit';
 
 class Send extends React.Component {
   constructor(props){
@@ -79,9 +80,7 @@ handleSendSms(){
     <button type="button" onClick={this.handleSendSms.bind(this)}>Submit</button>
     </div> */}
         <Inputs handleChange={this.handleChange} />
-        <button type="button" onClick={this.handleSendSms.bind(this)}>
-          Submit
-        </button>
+        <FloatingActionButton handleSendSms={this.handleSendSms.bind(this)} />
       </div>
     );
   }
