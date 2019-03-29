@@ -7,6 +7,7 @@ class MgrPortal extends React.Component {
         super(props);
         this.state = {
             employees: null,
+            selectedNumbers: [],
         }
     }
     componentDidMount(){
@@ -20,11 +21,17 @@ class MgrPortal extends React.Component {
             console.log(err)
         })
     }
+    setNumbers(nums){
+        this.setState({
+            selectedNumbers: nums
+        })
+    }
     render () {
+        const { employees } = this.state;
         return (
             <div>
                 <h2>manager portal</h2>
-                <EnhancedTable employees={this.state.employees}/>
+                <EnhancedTable setNumbers={this.setNumbers.bind(this)} employees={employees}/>
             </div>
         )
     }

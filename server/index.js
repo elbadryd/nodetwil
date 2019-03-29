@@ -12,6 +12,7 @@ const twilclient = require('twilio')(accountSid, authToken);
 const MongoClient = require('mongodb').MongoClient;
 const uri = `mongodb+srv://elbadryd:${process.env.MONGO_PW}@cluster0-mclid.mongodb.net/test?retryWrites=true`;
 const DATABASE_NAME = "employees";
+let database;
 
 app.use(express.static(path.join(__dirname, '../build')));
 app.use(bodyParser.json());

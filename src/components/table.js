@@ -209,8 +209,8 @@ class EnhancedTable extends React.Component {
     page: 0,
     rowsPerPage: 5,
   };
-  componentDidUpdate(prevProps){
-    const { employees } = this.props
+  componentDidUpdate(prevProps, prevState){
+    const { employees, setNumbers } = this.props;
     let newData = employees.map(employee => {
         return createData(employee.name, employee.number || null, employee.status || 'unknown')
     })
@@ -219,7 +219,11 @@ class EnhancedTable extends React.Component {
             data: newData
         })
     }
+    if (this.state.selected !== prevState.selected){
+      setNumbers(this.state.selected)
+    }
   }
+  
   handleRequestSort = (event, property) => {
     const orderBy = property;
     let order = 'desc';
