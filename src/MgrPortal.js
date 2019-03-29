@@ -36,15 +36,20 @@ class MgrPortal extends React.Component {
     handleSendSms() {
         const { selectedNumbers, smsContent } = this.state
         if (selectedNumbers.length) {
-            selectedNumbers.forEach(number =>{
-                axios.post('/text', {
+            let funcs = selectedNumbers.map(number =>{
+                return axios.post('/text', {
                     number,
                     smsContent,
                 })
-            .then(res => {
-                return res.status === 200 ? alert('sms sent successfully') : alert('something went wrong')
             })
-        })
+            axios.all(funcs)
+            .then(res => {
+                alert('sms sent successfully')
+            })
+            .catch(err => {
+                alert('something went terribly wrong :(')
+                console.log(err)
+            })
     }
 }
     render () {
